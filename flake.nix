@@ -52,6 +52,7 @@
         src,
         postgresql,
         additionalFeatures ? [],
+        buildInputs ? [],
       }: let
         cargo-pgrx = inputs.self.packages.${system}.cargo-pgrx;
         pkgs = inputs.nixpkgs.legacyPackages.${system};
@@ -83,6 +84,7 @@
             postgresql.lib
             postgresql
           ];
+          inherit buildInputs;
           cargoExtraArgs = "--no-default-features --features \"pg${postgresMajor} ${pgrxFeatures}\"";
           postPatch = "patchShebangs .";
           preBuild = preBuildAndTest;
